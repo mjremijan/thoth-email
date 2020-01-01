@@ -1,4 +1,4 @@
-package org.thoth.email.via.ssl;
+package org.thoth.email.via.tls;
 
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
@@ -16,21 +16,21 @@ import javax.mail.internet.MimeMultipart;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SslTest {
+public class TlsTest {
 
-    public SslTest() {
+    public TlsTest() {
     }
 
     protected String now, hostname;
 
-    protected Properties yahoo;
+    protected Properties outlook;
 
     @BeforeEach
     public void setUp() throws Exception {
         now = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(new Date());
         hostname = InetAddress.getLocalHost().getHostName();
-        yahoo = new Properties();
-        yahoo.load(this.getClass().getResourceAsStream("/smtp-ssl-yahoo.properties"));
+        outlook = new Properties();
+        outlook.load(this.getClass().getResourceAsStream("/smtp-tls-outlook.properties"));
     }
 
     @Test
@@ -50,9 +50,10 @@ public class SslTest {
         Properties props = new Properties();
         {
             props.setProperty("mail.smtp.auth", "true");
-            props.setProperty("mail.smtp.host", yahoo.getProperty("host"));
-            props.setProperty("mail.smtp.socketFactory.port", yahoo.getProperty("port"));
-            props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            props.setProperty("mail.smtp.host", outlook.getProperty("host"));
+            props.setProperty("mail.smtp.port", outlook.getProperty("port"));
+            props.setProperty("mail.smtp.starttls.enable", "true");
+
         }
 
         Session smtp = null;
@@ -61,8 +62,8 @@ public class SslTest {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(
-                          yahoo.getProperty("username")
-                        , yahoo.getProperty("password")
+                          outlook.getProperty("username")
+                        , outlook.getProperty("password")
                     );
                 }
             });
@@ -73,19 +74,19 @@ public class SslTest {
 
         MimeMessage m = new MimeMessage(smtp);
         {
-            m.setRecipient(Message.RecipientType.TO, new InternetAddress(yahoo.getProperty("to")));
-            m.setSubject("thoth-email SSL test " + now);
+            m.setRecipient(Message.RecipientType.TO, new InternetAddress(outlook.getProperty("to")));
+            m.setSubject("thoth-email TLS test " + now);
 
             InternetAddress from = null;
             {
-                from = new InternetAddress(yahoo.getProperty("from"));
+                from = new InternetAddress(outlook.getProperty("from"));
                 from.setPersonal("Thoth Email");
                 m.setFrom(from);
             }
 
             InternetAddress reply = null;
             {
-                reply = new InternetAddress(yahoo.getProperty("reply"));
+                reply = new InternetAddress(outlook.getProperty("reply"));
                 m.setReplyTo(new InternetAddress[] {reply});
             }
 

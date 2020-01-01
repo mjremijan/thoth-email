@@ -66,5 +66,6 @@
     </build>
     <modules>
         <module>thoth-email-via-ssl</module>
+        <module>thoth-email-via-tls</module>
     </modules>
 </project>
