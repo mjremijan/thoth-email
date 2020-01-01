@@ -50,7 +50,6 @@ public class SslTest {
         {
             props.setProperty("mail.smtp.host", yahoo.getProperty("host"));
             props.setProperty("mail.smtp.auth", "true");
-            // props.setProperty("mail.smtp.port", yahoo.getProperty("port"));
             props.setProperty("mail.smtp.socketFactory.port", yahoo.getProperty("port"));
             props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         }
