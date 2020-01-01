@@ -1,4 +1,4 @@
-package org.thoth.email.ssl;
+package org.thoth.email.via.ssl;
 
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
