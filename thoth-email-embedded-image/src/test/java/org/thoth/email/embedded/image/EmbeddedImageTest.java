@@ -54,11 +54,8 @@ public class EmbeddedImageTest {
                 {
                     sp.append("<body>");
                     {
-                        sp.append("<h1>Metadata</h1>");
                         sp.append("<p>Time: "+now+"</p>");
                         sp.append("<p>From: "+hostname+"</p>");
-
-                        sp.append("<h1>Image</h1>");
                         sp.append("<p>And so it begins!</p>");
                         sp.append("<p><img src=\"cid:" + cid + "\" /></p>");
                     }
