@@ -42,7 +42,11 @@ public class SslTest {
         // html part
         {
             MimeBodyPart textPart = new MimeBodyPart();
-            textPart.setText("<html><body><p>Time: "+now+"</p><p>From: "+hostname+"</p></body></html>", "UTF8", "html");
+            textPart.setText("<html><body>"
+                + "<p>Time: "+now+"</p>"
+                + "<p>From: "+hostname+"</p>"
+                + "</body></html>"
+                , "UTF8", "html");
             content.addBodyPart(textPart);
         }
 
