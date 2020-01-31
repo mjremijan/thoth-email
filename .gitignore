@@ -1,3 +1,4 @@
 /thoth-email-via-ssl/target/
 /thoth-email-via-tls/target/
 /thoth-email-embedded-image/target/
+/thoth-email-base64-image/target/

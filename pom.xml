@@ -81,5 +81,6 @@
         <module>thoth-email-via-ssl</module>
         <module>thoth-email-via-tls</module>
         <module>thoth-email-embedded-image</module>
+        <module>thoth-email-base64-image</module>
     </modules>
 </project>
