@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
-import javax.activation.DataHandler;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -15,7 +14,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -68,20 +66,6 @@ public class Base64ImageTest {
             content.addBodyPart(textPart);
         }
 
-        // image part
-        {
-            MimeBodyPart imagePart = new MimeBodyPart();
-            ByteArrayDataSource ds =
-                new ByteArrayDataSource(getClass().getResourceAsStream("/kosh.jpg"), "image/jpeg");
-            imagePart.setDataHandler(new DataHandler(ds));
-            imagePart.setFileName("Kosh.jpg");
-            imagePart.setContentID("<" + cid + ">");
-            imagePart.setDisposition(MimeBodyPart.INLINE);
-
-            content.addBodyPart(imagePart);
-        }
-
-        // properties
         Properties props = new Properties();
         {
             props.setProperty("mail.smtp.auth", "true");
@@ -106,7 +90,6 @@ public class Base64ImageTest {
             smtp.setDebugOut(System.out);
         }
 
-
         MimeMessage m = new MimeMessage(smtp);
         {
             m.setRecipient(Message.RecipientType.TO, new InternetAddress(outlook.getProperty("to")));
@@ -124,7 +107,6 @@ public class Base64ImageTest {
                 reply = new InternetAddress(outlook.getProperty("reply"));
                 m.setReplyTo(new InternetAddress[] {reply});
             }
-
 
             m.setContent(content);
         }
