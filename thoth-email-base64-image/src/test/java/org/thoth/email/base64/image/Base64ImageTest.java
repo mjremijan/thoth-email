@@ -31,7 +31,7 @@ public class Base64ImageTest {
         now = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(new Date());
         hostname = InetAddress.getLocalHost().getHostName();
         outlook = new Properties();
-        outlook.load(this.getClass().getResourceAsStream("/smtp-tls-pepipost.properties"));
+        outlook.load(this.getClass().getResourceAsStream("/smtp-tls-outlook.properties"));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class Base64ImageTest {
             InternetAddress from = null;
             {
                 from = new InternetAddress(outlook.getProperty("from"));
-                from.setPersonal("Thoth Email B64");
+                //from.setPersonal("Thoth Email B64");
                 m.setFrom(from);
             }
 
