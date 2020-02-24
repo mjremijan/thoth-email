@@ -31,7 +31,7 @@ public class Base64ImageTest {
         now = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a").format(new Date());
         hostname = InetAddress.getLocalHost().getHostName();
         outlook = new Properties();
-        outlook.load(this.getClass().getResourceAsStream("/smtp-tls-outlook.properties"));
+        outlook.load(this.getClass().getResourceAsStream("/smtp-tls-sendinblue.properties"));
     }
 
     @Test
@@ -95,16 +95,18 @@ public class Base64ImageTest {
             m.setRecipient(Message.RecipientType.TO, new InternetAddress(outlook.getProperty("to")));
             m.setSubject("thoth-email TLS test " + now);
 
-            InternetAddress from = null;
+            // from
+            String personal = "Thoth Email B64";
             {
-                from = new InternetAddress(outlook.getProperty("from"));
-                //from.setPersonal("Thoth Email B64");
+                InternetAddress from = new InternetAddress(outlook.getProperty("from"));
+                from.setPersonal(personal);
                 m.setFrom(from);
             }
 
-            InternetAddress reply = null;
+            // reply
             {
-                reply = new InternetAddress(outlook.getProperty("reply"));
+                InternetAddress reply = new InternetAddress(outlook.getProperty("reply"));
+                reply.setPersonal(personal);
                 m.setReplyTo(new InternetAddress[] {reply});
             }
 
